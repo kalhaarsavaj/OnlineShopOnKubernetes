@@ -1,0 +1,3 @@
+hostname: shop.com
+ingressName: frontend-ingress
+ingressPort: 8080

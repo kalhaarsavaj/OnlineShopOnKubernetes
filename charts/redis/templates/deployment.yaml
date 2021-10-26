@@ -1,0 +1,48 @@
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cart
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+      - name: {{ .Values.appName }}
+        image: {{ .Values.appImage }}
+        ports: 
+        - containerPort: {{ .Values.containerPort }}
+        volumeMounts:
+        - mountPath: {{ .Values.volumeMountPath }}
+          name: {{ .Values.volumeName }}
+        # livenessProbe: 
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
+        #   httpGet:
+        #     path: /health
+        #     port: {{ .Values.containerPort }}
+        # readinessProbe: 
+        #   periodSeconds: 5
+        #   tcpSocket: 
+        #     port: {{ .Values.containerPort }} 
+        resources: 
+          requests: 
+            cpu: 70m
+            memory: 200Mi
+          limits: 
+            cpu: 140m
+            memory: 300Mi
+
+      volumes:
+      - name: {{ .Values.volumeName }}
+        emptyDir: {}
+
+

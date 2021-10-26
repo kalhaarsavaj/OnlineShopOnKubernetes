@@ -1,0 +1,8 @@
+appName: redis
+appImage: redis
+appReplicas: 1
+containerPort: 6379
+volumeName: redis-data
+volumeMountPath: /data
+servicePort: 6379
+serviceType: ClusterIP
